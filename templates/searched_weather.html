@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <script src="{{ url_for('static', filename='three.r119.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vanta.fog.min.js') }}"></script>
+
+    <title>Weather App</title>
+
+</head>
+
+<body>
+    <div class="overlay"></div>
+
+    <div class="output">
+        <h3>{{area}}</h3><br>
+
+        {% if selected == "celsius"%}
+            <h3>{{output}}°C</h3>
+        {% else %}
+            <h3>{{output}}°F</h3>
+        {% endif %}
+    </div>
+
+    <div class="input">
+        <form method="POST">
+            <input type="text" name="zip" onfocus="this.placeholder='', this.value=''" onblur="this.placeholder='Input ZIP code'" placeholder="Input ZIP code" value="{{zip}}"><br>
+            <input type="submit" value="Get Weather">
+            {% if selected == "celsius"%}
+                <input type="radio" id="fahrenheit" name="temptype" value="fahrenheit">
+                <label for="fahrenheit">F</label>
+                <input type="radio" id="celsius" name="temptype" value="celsius" checked="checked">
+                <label for="celsius">C</label>
+            {% else %}
+                <input type="radio" id="fahrenheit" name="temptype" value="fahrenheit" checked="checked">
+                <label for="fahrenheit">F</label>
+                <input type="radio" id="celsius" name="temptype" value="celsius">
+                <label for="celsius">C</label>
+            {% endif %}
+        </form>
+    </div>
+</body>
+<script>
+    VANTA.FOG({
+      el: "body",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00
+    })
+    </script>
